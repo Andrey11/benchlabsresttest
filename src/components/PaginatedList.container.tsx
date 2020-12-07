@@ -32,7 +32,7 @@ const mapStateToProps = (state: any) => {
         error: error,
         errorMessage: getErrorMessage(error, errorMessage, rows.length, totalCount),
         pageNumberToLoad: lastLoadedPage + 1,
-        canLoad: canLoad
+        canLoad: totalCount > rows.length
     };
 
 };
