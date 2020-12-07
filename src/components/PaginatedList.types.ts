@@ -23,7 +23,8 @@ export type PaginatedListState = {
     loaded: boolean,
     totalCount: number,
     errorMessage: string,
-    error: boolean
+    error: boolean,
+    canLoad: boolean
 }
 
 export type PaginatedListProps = {
@@ -33,6 +34,7 @@ export type PaginatedListProps = {
     loaded: boolean;
     error: boolean;
     errorMessage: string;
+    canLoad: boolean;
     loadPageNumber: (pageNum: number) => void;
 };
 

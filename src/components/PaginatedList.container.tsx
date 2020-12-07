@@ -23,7 +23,7 @@ const getErrorMessage = (error: boolean, errorMsg: string, currentCount: number,
 }
 
 const mapStateToProps = (state: any) => {
-    const { rows, loaded, error, errorMessage, totalCount, lastLoadedPage } = state.paginatedlist;
+    const { rows, loaded, error, errorMessage, totalCount, lastLoadedPage, canLoad } = state.paginatedlist;
 
     return {
         rows: rows,
@@ -31,7 +31,8 @@ const mapStateToProps = (state: any) => {
         loaded: loaded,
         error: error,
         errorMessage: getErrorMessage(error, errorMessage, rows.length, totalCount),
-        pageNumberToLoad: lastLoadedPage + 1
+        pageNumberToLoad: lastLoadedPage + 1,
+        canLoad: canLoad
     };
 
 };

@@ -5,7 +5,8 @@ import { formatDateToString, formatNumberToCurrencyString } from '../utils/Strin
 import RowCell from './RowCell.component';
 import { PaginatedListProps, TransactionDataType } from './PaginatedList.types';
 
-const PaginatedList = ({ rows, totalAmount, pageNumberToLoad, loaded, error, errorMessage, loadPageNumber }: PaginatedListProps) => {
+const PaginatedList = ({ rows, totalAmount, pageNumberToLoad, loaded, canLoad, error, errorMessage, loadPageNumber }: PaginatedListProps) => {
+
     useEffect(() => {
         if (!loaded && !error) {
             loadPageNumber(pageNumberToLoad);
@@ -13,12 +14,25 @@ const PaginatedList = ({ rows, totalAmount, pageNumberToLoad, loaded, error, err
     });
 
     const createHeader = (amount: string) => {
-        return <ListRow cls={styles.RowHeader}>
-            <RowCell text="Date" cls={`${styles.CellDate} ${styles.CellHeader}`} />
-            <RowCell text="Company" cls={`${styles.CellCompany} ${styles.CellHeader}`} />
-            <RowCell text="Account" cls={`${styles.CellHeader} ${styles.CellLedger}`} />
-            <RowCell text={amount} cls={`${styles.CellAmount} ${styles.CellHeader}`} />
-        </ListRow>
+        return (
+            <ListRow cls={styles.RowHeader}>
+                <RowCell text="Date" cls={`${styles.CellDate} ${styles.CellHeader}`} />
+                <RowCell text="Company" cls={`${styles.CellCompany} ${styles.CellHeader}`} />
+                <RowCell text="Account" cls={`${styles.CellHeader} ${styles.CellLedger}`} />
+                <RowCell text={amount} cls={`${styles.CellAmount} ${styles.CellHeader}`} />
+            </ListRow>
+        );
+    };
+
+    const createFooter = () => {
+        if (canLoad) {
+            return (
+                <div className={styles.PaginatedListFooter}>
+                    <button type="reset" className={styles.ButtonLoadMore} onClick={() => loadPageNumber(pageNumberToLoad)}>Load more...</button>
+                </div>
+            );
+        }
+        return <div className={styles.PaginatedListFooter}></div>;
     };
 
     const createRows = () => {
@@ -51,6 +65,7 @@ const PaginatedList = ({ rows, totalAmount, pageNumberToLoad, loaded, error, err
         {createHeader(totalAmount)}
         {createPaginatedListErrorPanel()}
         {createPaginatedListPanel()}
+        {createFooter()}
     </div>;
 }
 

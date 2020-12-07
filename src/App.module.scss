@@ -8,15 +8,15 @@
 
 .AppHeader {
   height: 60px;
-  line-height: 60px;
   text-align: center;
-  background-color: #098b8c;
+  line-height: 60px;
   font-weight: 500;
-  color: #deefef;
+  background-color: var(--bl-theme-primary, #098b8c);
+  color: var(--bl-theme-on-primary, #efede8);
 }
 
 .AppBody {
   flex: 1;
   padding: 24px;
-  overflow-y: scroll;
+  overflow: hidden;
 }
