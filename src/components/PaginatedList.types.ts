@@ -43,5 +43,5 @@ export type ListRowProps = {
 
 export type RowCellProps = {
     text: string;
-    cls: string;
+    cls?: string;
 };

@@ -1,5 +1,5 @@
 
-export const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const MONTHS = ["NA", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 export const formatNumberToCurrencyString = (amount: number, curSymbol: string = "$", curSymbolInsertFront: boolean = true): string => {
     const negativeSign = amount < 0 ? "-" : "";
@@ -12,11 +12,11 @@ export const formatNumberToCurrencyString = (amount: number, curSymbol: string =
 
 export const getDateSuffix = (date: number): string => {
     let suffix = "th";
-    if (date % 10 === 1 && date !== 11) {
+    if (date % 10 === 1 && date % 100 !== 11) {
         suffix = "st";
-    } else if (date % 10 === 2 && date !== 12) {
+    } else if (date % 10 === 2 && date % 100 !== 12) {
         suffix = "nd";
-    } else if (date % 10 === 3 && date !== 13) {
+    } else if (date % 10 === 3 && date % 100 !== 13) {
         suffix = "rd";
     }
     return suffix;
@@ -24,13 +24,13 @@ export const getDateSuffix = (date: number): string => {
 
 export const formatDateToString = (dateString: string): string => {
     let formattedDate: string = "";
-    const dateObj: Date = new Date(dateString);
+    const dateArray = dateString ? dateString.split("-") : null;
 
-    if (!!dateObj.getTime()) {
-        const month = MONTHS[dateObj.getMonth()];
-        const date = dateObj.getDate();
+    if (dateArray) {
+        const month = MONTHS[parseInt(dateArray[1])];
+        const date = parseInt(dateArray[2]);
         const dateSuffix = getDateSuffix(date);
-        const year = dateObj.getFullYear();
+        const year = dateArray[0];
         formattedDate = month + " " + date + dateSuffix + ", " + year;
     }
 
