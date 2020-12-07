@@ -1,0 +1,12 @@
+.PaginatedList {
+    // overflow-x: hidden;
+    // overflow-y: scroll;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.PaginatedContainer {
+    border: 1px salmon solid;
+    // margin: 20px;
+}
