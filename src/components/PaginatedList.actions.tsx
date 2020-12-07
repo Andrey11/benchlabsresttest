@@ -4,7 +4,7 @@ import axios from "axios";
 import { PayloadDataType, PayloadErrorType } from "./PaginatedList.types";
 
 export const loadPage = (pageNumber: number) => (dispatch: AppDispatch) => {
-    axios.get("https://resttest.bench.co/transactions/" + pageNumber + ".json")
+    axios.get(`https://resttest.bench.co/transactions/${pageNumber}.json`)
         .then(response => {
             const payload: PayloadDataType = {
                 rows: response.data.transactions,
