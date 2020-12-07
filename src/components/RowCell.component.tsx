@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./RowCell.module.scss";
 
 export type RowCellType = {
     text: string;
@@ -6,7 +7,7 @@ export type RowCellType = {
 };
 
 const RowCell = ({ text, cls }: RowCellType) => {
-    return <div className={cls}>{text}</div>;
+    return <div className={`${styles.Cell} ${cls}`}>{text}</div>;
 };
 
 export default RowCell;

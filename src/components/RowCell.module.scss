@@ -1,0 +1,10 @@
+.Cell {
+    color: inherit;
+    flex: 1;
+    height: 50px;
+    line-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 20px;
+}

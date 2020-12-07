@@ -1,9 +1,18 @@
 import React, { useEffect } from 'react';
 import styles from "./PaginatedList.module.scss";
-import ListRow, { ListRowType } from './ListRow.component';
+import ListRow from './ListRow.component';
+import { formatDateToString, formatNumberToCurrencyString } from '../utils/StringUtils';
+import RowCell from './RowCell.component';
+
+export type RowDataType = {
+    Date: string;
+    Company: string;
+    Ledger: string;
+    Amount: string;
+}
 
 export type PaginatedListType = {
-    rows: ListRowType[];
+    rows: RowDataType[];
     totalAmount: any;
     loaded: boolean;
     pageNumberToLoad: number;
@@ -22,12 +31,23 @@ const PaginatedList = ({ rows, totalAmount, loaded, pageNumberToLoad, loadPageNu
 
 
     const createHeader = () => {
-        return <ListRow Date="Date" Amount={totalAmount} Company="Company" Ledger="Ledger" />;
+        // return <ListRow cls="Row" Date="Date" Amount={totalAmount} Company="Company" Ledger="Ledger" />;
+        return <ListRow>
+            <RowCell text="Date" cls={`${styles.CellDate} ${styles.CellHeader}`} />
+            <RowCell text="Company" cls={`${styles.CellCompany} ${styles.CellHeader}`} />
+            <RowCell text="Ledger" cls={`${styles.CellHeader} ${styles.CellLedger}`} />
+            <RowCell text={totalAmount} cls={`${styles.CellAmount} ${styles.CellHeader}`} />
+        </ListRow>
     };
 
     const createRows = () => {
-        return rows.map((row, index: number) => (
-            <ListRow Date={row.Date} Amount={row.Amount} Company={row.Company} Ledger={row.Ledger} key={"row-index_" + index} />
+        return rows.map((row: RowDataType, index: number) => (
+            <ListRow key={"row-index_" + index}>
+                <RowCell text={formatDateToString(row.Date)} cls={styles.CellDate} />
+                <RowCell text={row.Company} cls={styles.CellCompany} />
+                <RowCell text={row.Ledger} cls={styles.CellLedger} />
+                <RowCell text={formatNumberToCurrencyString(parseFloat(row.Amount))} cls={styles.CellAmount} />
+            </ListRow>
         ));
     };
 

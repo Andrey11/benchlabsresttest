@@ -5,8 +5,6 @@ import PaginatedList from "./PaginatedList.component";
 import { loadPage } from "./PaginatedList.actions";
 import { formatNumberToCurrencyString } from "../utils/StringUtils";
 
-
-
 const getTotalAmount = (transactions: Array<any>) => {
     let totalAmount = 0;
     transactions.forEach((transaction) => {

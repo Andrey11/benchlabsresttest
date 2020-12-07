@@ -1,12 +1,64 @@
+@mixin createTextProps($fontWeight, $fontSize) {
+    font-weight: $fontWeight;
+    font-size: $fontSize;
+}
+
 .PaginatedList {
-    // overflow-x: hidden;
-    // overflow-y: scroll;
     background-color: white;
     display: flex;
     flex-direction: column;
+
+    div:nth-child(odd) {
+        & div:nth-child(odd) {
+            color: lightslategray;
+        }
+        & div:nth-child(even) {
+            color: #000505;
+        }
+    }
+    div:nth-child(even) {
+        color: #079ea0;
+    }
 }
 
 .PaginatedContainer {
-    border: 1px salmon solid;
-    // margin: 20px;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    // border: 0 solid rgba(0, 0, 0, 0);
+    background-color: white;
+}
+
+.CellHeader {
+    &.CellDate,
+    &.CellLedger,
+    &.CellCompany,
+    &.CellAmount {
+        color: #079ea0;
+        @include createTextProps(700, 15px);
+    }
+}
+
+.CellDate {
+    @include createTextProps(700, 14px);
+    max-width: 120px;
+    text-align: start;
+}
+
+.CellAmount {
+    @include createTextProps(700, 14px);
+    max-width: 100px;
+    text-align: end;
+}
+
+.CellCompany {
+    @include createTextProps(700, 14px);
+    text-align: start;
+}
+
+.CellLedger {
+    font-weight: 400;
+    font-size: 12px;
+    text-align: start;
 }

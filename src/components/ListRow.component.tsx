@@ -1,21 +1,20 @@
 import React from "react";
 import styles from "./ListRow.module.scss";
-import RowCell from "./RowCell.component";
 
 export type ListRowType = {
-    Date: string;
-    Ledger: string;
-    Amount: string;
-    Company: string;
+    cls?: string;
+    children: any;
 };
 
-const ListRow = ({ Date, Ledger, Amount, Company }: ListRowType) => {
-    return <div className={styles.Row}>
-        <RowCell text={Date} cls={`${styles.Cell} ${styles.CellDate}`} />
-        {/* <div className={`${styles.Cell} ${styles.CellDate}`}>{Date}</div> */}
-        <div className={`${styles.Cell} ${styles.CellCompany}`}>{Company}</div>
-        <div className={`${styles.Cell} ${styles.CellLedger}`}>{Ledger}</div>
-        <div className={`${styles.Cell} ${styles.CellAmount}`}>{Amount}</div>
+const ListRow = ({ cls, children }: ListRowType) => {
+    let clsProps = styles.Row;
+
+    if (cls) {
+        clsProps = `${styles.Row} ${cls}`;
+    }
+
+    return <div className={clsProps}>
+        {children}
     </div>;
 };
 
