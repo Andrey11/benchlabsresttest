@@ -1,24 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PaginatedListState, PayloadDataType, PayloadErrorType } from './PaginatedList.types';
+
+const MAX_ROWS: number = 200;
+
+const initialState: PaginatedListState = {
+    rows: [],
+    lastLoadedPage: 0,
+    loaded: false,
+    totalCount: 0,
+    errorMessage: "",
+    error: false
+};
 
 export const paginatedListSlice = createSlice({
     name: 'PaginatedListData',
-    initialState: {
-        rows: [],
-        lastLoadedPage: 0,
-        loaded: false,
-        totalCount: 0,
-        errorMessage: "",
-        error: false
-    },
+    initialState,
     reducers: {
-        onLoadPageSuccess: (state: any, action: PayloadAction<any>) => {
+        onLoadPageSuccess: (state: any, action: PayloadAction<PayloadDataType>) => {
             state.rows = state.rows.concat(action.payload.rows);
             state.lastLoadedPage = action.payload.lastLoadedPage;
             state.totalCount = action.payload.totalCount;
-            state.loaded = action.payload.loaded;
+            state.loaded = state.rows.length >= Math.min(action.payload.totalCount, MAX_ROWS);
             state.error = false;
         },
-        onLoadPageError: (state, action: PayloadAction<any>) => {
+        onLoadPageError: (state, action: PayloadAction<PayloadErrorType>) => {
             state.errorMessage = action.payload.errorMessage;
             state.loaded = true;
             state.error = true;

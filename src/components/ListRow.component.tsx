@@ -1,19 +1,9 @@
 import React from "react";
 import styles from "./ListRow.module.scss";
+import { ListRowProps } from "./PaginatedList.types";
 
-export type ListRowType = {
-    cls?: string;
-    children: any;
-};
-
-const ListRow = ({ cls, children }: ListRowType) => {
-    let clsProps = styles.Row;
-
-    if (cls) {
-        clsProps = `${styles.Row} ${cls}`;
-    }
-
-    return <div className={clsProps}>
+const ListRow = ({ cls, children }: ListRowProps) => {
+    return <div className={cls ? `${styles.Row} ${cls}` : styles.Row}>
         {children}
     </div>;
 };

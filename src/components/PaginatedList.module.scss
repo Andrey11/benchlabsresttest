@@ -3,6 +3,27 @@
     font-size: $fontSize;
 }
 
+@mixin createCustomRowProps($color) {
+    color: $color;
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    background-color: inherit;
+    border-bottom: 1px solid rgba($color: #000000, $alpha: 0.2);
+    line-height: 50px;
+    justify-content: center;
+}
+
+.PaginatedContainer {
+    box-sizing: border-box;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    background-color: white;
+}
+
 .PaginatedList {
     background-color: white;
     display: flex;
@@ -21,13 +42,13 @@
     }
 }
 
-.PaginatedContainer {
-    box-sizing: border-box;
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
-    // border: 0 solid rgba(0, 0, 0, 0);
-    background-color: white;
+.PaginatedListEmpty {
+    @include createCustomRowProps(rgba(#079ea0, 0.4));
+    @include createTextProps(400, 14px);
+}
+.PaginatedListError {
+    @include createCustomRowProps(rgba(#ec2626, 0.7));
+    @include createTextProps(700, 13px);
 }
 
 .CellHeader {

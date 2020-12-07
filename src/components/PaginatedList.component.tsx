@@ -3,45 +3,30 @@ import styles from "./PaginatedList.module.scss";
 import ListRow from './ListRow.component';
 import { formatDateToString, formatNumberToCurrencyString } from '../utils/StringUtils';
 import RowCell from './RowCell.component';
+import { PaginatedListProps, TransactionDataType } from './PaginatedList.types';
 
-export type RowDataType = {
-    Date: string;
-    Company: string;
-    Ledger: string;
-    Amount: string;
-}
-
-export type PaginatedListType = {
-    rows: RowDataType[];
-    totalAmount: any;
-    loaded: boolean;
-    pageNumberToLoad: number;
-    loadPageNumber: (pageNum: number) => void;
-};
-
-
-const PaginatedList = ({ rows, totalAmount, loaded, pageNumberToLoad, loadPageNumber }: PaginatedListType) => {
-    console.log("list");
+const PaginatedList = ({ rows, totalAmount, pageNumberToLoad, loaded, error, errorMessage, loadPageNumber }: PaginatedListProps) => {
     useEffect(() => {
-        console.log("list");
-        if (!loaded) {
+        if (!loaded && !error) {
             loadPageNumber(pageNumberToLoad);
         }
     });
 
-
-    const createHeader = () => {
-        // return <ListRow cls="Row" Date="Date" Amount={totalAmount} Company="Company" Ledger="Ledger" />;
-        return <ListRow>
+    const createHeader = (amount: string) => {
+        return <ListRow cls={styles.RowHeader}>
             <RowCell text="Date" cls={`${styles.CellDate} ${styles.CellHeader}`} />
             <RowCell text="Company" cls={`${styles.CellCompany} ${styles.CellHeader}`} />
-            <RowCell text="Ledger" cls={`${styles.CellHeader} ${styles.CellLedger}`} />
-            <RowCell text={totalAmount} cls={`${styles.CellAmount} ${styles.CellHeader}`} />
+            <RowCell text="Account" cls={`${styles.CellHeader} ${styles.CellLedger}`} />
+            <RowCell text={amount} cls={`${styles.CellAmount} ${styles.CellHeader}`} />
         </ListRow>
     };
 
     const createRows = () => {
-        return rows.map((row: RowDataType, index: number) => (
+        if (rows.length === 0 && !error) {
+            return <div className={styles.PaginatedListEmpty}>No results</div>
+        }
+
+        return rows.map((row: TransactionDataType, index: number) => (
             <ListRow key={"row-index_" + index}>
                 <RowCell text={formatDateToString(row.Date)} cls={styles.CellDate} />
                 <RowCell text={row.Company} cls={styles.CellCompany} />
@@ -51,9 +36,21 @@ const PaginatedList = ({ rows, totalAmount, loaded, pageNumberToLoad, loadPageNu
         ));
     };
 
+    const createPaginatedListPanel = () => {
+        return <div className={styles.PaginatedList}>{createRows()}</div>;
+    };
+
+    const createPaginatedListErrorPanel = () => {
+        if (error) {
+            return <div className={styles.PaginatedListError}>{errorMessage}</div>
+        }
+        return null;
+    }
+
     return <div className={styles.PaginatedContainer}>
-        {createHeader()}
-        <div className={styles.PaginatedList}>{createRows()}</div>
+        {createHeader(totalAmount)}
+        {createPaginatedListErrorPanel()}
+        {createPaginatedListPanel()}
     </div>;
 }
 
