@@ -1,6 +1,8 @@
 # Bench Labs REST API Test
 
-Solution for a REST API coding assignment using react with redux.
+Solution for a REST API coding assignment using react with redux.\
+[Requirements](https://resttest.bench.co/front-end) and 
+[Mockup](https://resttest.bench.co/assets/files/bench-test.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
